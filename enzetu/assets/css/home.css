@@ -1,0 +1,332 @@
+:root {
+  --fg: #0f172a;
+  --muted: #64748b;
+  --accent: #0b63ce;
+  --bg: #f8fafc;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  color: var(--fg);
+  background: var(--bg);
+  margin: 0;
+}
+
+/* --- Header --- */
+header {
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.7);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.brand {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.links a {
+  margin-left: 14px;
+  text-decoration: none;
+  color: var(--fg);
+  transition: color 0.2s;
+}
+
+.links a:hover {
+  color: var(--accent);
+}
+
+/* --- Hero --- */
+.hero {
+  padding: 64px 0 36px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: clamp(1.6rem, 1.2rem + 2vw, 2.4rem);
+  margin: 0 0 10px;
+}
+
+.hero p {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* --- Cards --- */
+.grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(12, 1fr);
+  margin: 28px auto 56px;
+}
+
+.card {
+  grid-column: span 12;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 18px 18px;
+  box-shadow: 0 4px 14px rgba(2, 8, 23, 0.04);
+}
+
+.card h2 {
+  font-size: 1.1rem;
+  margin: 0 0 6px;
+}
+
+.card p {
+  margin: 0 0 12px;
+  color: var(--muted);
+}
+
+.card a {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: var(--fg);
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.card a:hover {
+  background: #111827;
+}
+
+@media (min-width: 640px) {
+  .card {
+    grid-column: span 6;
+  }
+}
+
+@media (min-width: 960px) {
+  .card {
+    grid-column: span 4;
+  }
+}
+
+/* --- Footer --- */
+footer {
+  padding: 28px 0 48px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+:root{
+  --fg: #0f172a;        /* 本文文字色 */
+  --muted: #64748b;     /* サブテキスト */
+  --link: #0b63ce;      /* アクセント色 */
+  --line: #ddd;         /* 区切り線を少し薄く */
+  --bg: #f5f5f3;        /* ✅ 背景色：NDLサイト風の淡いグレー */
+}
+
+
+body{
+  font-family: system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial;
+  color: var(--fg);
+  background: var(--bg);   /* ✅ この行が背景色を反映 */
+  margin: 0;
+}
+
+
+.container{
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* ヘッダー（極力プレーン） */
+.site-header{
+  border-bottom: 1px solid var(--line);
+  padding: 20px 0 16px;
+}
+.site-title{
+  font-size: clamp(1.35rem, 1.1rem + 1.2vw, 1.9rem);
+  margin: 0 0 4px;
+  font-weight: 700;
+}
+.site-sub{
+  margin: 0;
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+/* セクション見出し（小ぶりに） */
+.section-title{
+  font-size: 1.05rem;
+  margin: 20px 0 8px;
+  font-weight: 700;
+}
+
+/* 縦並びのリストナビ（NDL風のすっきり） */
+.list-nav{
+  display: block;
+  border-top: 1px solid var(--line);
+}
+.list-item{
+  display: block;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  color: inherit;
+}
+.list-item:focus,
+.list-item:hover{
+  background: #fafafa;
+}
+.item-title{
+  display: block;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.item-desc{
+  display: block;
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+/* フッターもシンプルに */
+.site-footer{
+  border-top: 1px solid var(--line);
+  padding: 18px 0 28px;
+  margin-top: 24px;
+  color: var(--muted);
+  font-size: .9rem;
+  text-align: left;
+}
+
+/* 使い方と他項目の間に少し距離をつくる */
+.list--solo { margin-bottom: 14px; }
+
+/* 「解説はここから」の見出しだけ少し間隔を広げる */
+.section-title--spaced { margin-top: 16px; }
+
+/* スマホ時に説明文を読みやすく（わずかに行間UP） */
+.item-desc { line-height: 1.6; }
+
+.search-section{
+  margin: 20px 0 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+}
+.search-label{
+  display:block;
+  font-weight:600;
+  margin-bottom:6px;
+  font-size:.95rem;
+}
+#searchInput{
+  width:100%;
+  max-width:400px;
+  padding:8px 10px;
+  font-size:.95rem;
+  border:1px solid var(--line);
+  border-radius:6px;
+}
+#searchInput:focus{
+  outline:none;
+  border-color:var(--link);
+  box-shadow:0 0 0 2px rgba(11,99,206,.15);
+}
+/* ─── 段落風インデント ─── */
+
+/* 見出しの下に少し余白をとる */
+.section-title { margin-bottom: 4px; }
+
+/* インデント付きリスト（項目を右に寄せる） */
+.list--indent {
+  margin-left: 1.5em;  /* ← 段落のような字下げ */
+  border-left: 2px solid var(--line);
+  padding-left: 1em;
+}
+
+/* 項目間の余白を少し詰めて段落っぽく */
+.list--indent .list-item {
+  padding: 10px 0;
+}
+
+/* スマホではやや広めに（指で押しやすく） */
+@media (max-width:600px){
+  .list--indent { margin-left: 1em; }
+}
+/* ── 検索UI ───────────────────────── */
+.search-section{
+  margin: 16px 0 12px;
+  padding: 8px 0 12px;
+  border-bottom: 1px solid var(--line);
+}
+.search-label{
+  display:block;
+  font-weight:600;
+  margin-bottom:6px;
+  font-size:.95rem;
+}
+#searchInput{
+  width:100%;
+  max-width:420px;
+  padding:8px 10px;
+  font-size:.95rem;
+  border:1px solid var(--line);
+  border-radius:6px;
+}
+#searchInput:focus{
+  outline:none;
+  border-color:var(--link);
+  box-shadow:0 0 0 2px rgba(11,99,206,.15);
+}
+.search-note{
+  margin:.4rem 0 0;
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+/* 該当なしメッセージ */
+.no-result{
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+/* ── 段落風インデント（前回分と整合） ── */
+.section-title { margin-bottom: 4px; }
+.list--indent {
+  margin-left: 1.5em;
+  border-left: 2px solid var(--line);
+  padding-left: 1em;
+}
+.list--indent .list-item { padding: 10px 0; }
+
+@media (max-width:600px){
+  .list--indent { margin-left: 1em; }
+  #searchInput{ max-width:100%; }
+}
+
+/* 本文ハイライト */
+mark.hl{ background:#ffe08a; padding:0 .05em; border-radius:2px; }
+mark.hl.current{ outline:2px solid #0b63ce; background:#ffdf70; }
+
+/* 検索バーの横並び */
+.search-toolbar{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:6px; }
+.search-toolbar input{ flex:1 1 280px; }
+.search-toolbar button{ padding:7px 10px; font-size:.9rem; border:1px solid var(--line); background:#fff; border-radius:6px; cursor:pointer; }
+.search-toolbar button:hover{ background:#f4f4f2; }
+.search-count{ color:var(--muted); font-size:.9rem; }

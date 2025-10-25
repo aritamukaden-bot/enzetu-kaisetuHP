@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>用語詳細</title>
+
+  <!-- パス修正 -->
+  <link rel="stylesheet" href="assets/css/detail.css">
+</head>
+<body>
+<div class="wrap">
+  <a href="index.html">← 本文へ戻る</a>
+  <header>
+    <h1 id="title">用語</h1>
+    <div class="tag" id="law"></div>
+  </header>
+
+  <section>
+    <h2>概要</h2>
+    <p id="memo">読み込み中…</p>
+  </section>
+
+  <section>
+    <h2>対応する日本の現状・制度</h2>
+    <p id="who"></p>
+  </section>
+
+  <section>
+    <h2>関連トピック</h2>
+    <ul id="topics"></ul>
+  </section>
+
+  <section>
+    <h2>最近のニュース・資料</h2>
+    <ul id="news"></ul>
+    <p class="note">※ニュースURLは glossary.js に追記してください。</p>
+  </section>
+</div>
+
+<!-- JSパス修正 -->
+<script src="assets/js/glossary.js"></script>
+<script>
+(function(){
+  const norm = (s)=> (s||'').normalize('NFKC').replace(/\s+/g,'').replace(/[（）()]/g,'');
+  const qRaw = new URLSearchParams(location.search).get('q') || '';
+  const q = qRaw;
+  const G = window.GLOSSARY||{};
+
+  // 1) direct hit
+  let item = G[q];
+
+  // 2) normalized key hit
+  if(!item){
+    const nq = norm(q);
+    for(const k of Object.keys(G)){
+      if(norm(k) === nq){ item = G[k]; break; }
+    }
+  }
+
+  // 3) pattern hit
+  if(!item){
+    const nq = norm(q);
+    for(const [k,v] of Object.entries(G)){
+      const pat = v && v.pattern;
+      try{
+        if((pat && new RegExp(pat, 'i').test(q)) || (pat && new RegExp(pat, 'i').test(nq))){
+          item = v; break;
+        }
+      }catch(e){ /* ignore bad pattern */ }
+    }
+  }
+
+  const set = (id, html) => document.getElementById(id).innerHTML = html;
+
+  if(!item){
+    set('title','用語情報が見つかりません');
+    set('memo','glossary.js に追加してください。');
+    return;
+  }
+  const titleText = item.title || q;
+  set('title', titleText);
+  set('law', item.law ? `関連：${item.law}` : '');
+  set('memo', item.memo || '');
+  set('who', item.who ? `担当・所管：${item.who}` : '（情報未設定）');
+
+  const topicsUl = document.getElementById('topics');
+  const topics = Array.isArray(item.topics) ? item.topics : [];
+  if(topics.length){
+    topics.forEach(t => {
+      const li = document.createElement('li');
+      li.textContent = t;
+      topicsUl.appendChild(li);
+    });
+  }else{
+    topicsUl.innerHTML = '<li>（未設定）</li>';
+  }
+
+  function ensureNews(item, titleText){
+  if(!item.news || !Array.isArray(item.news) || item.news.length===0){
+    const qn = encodeURIComponent((titleText||'').replace(/[（(].*?[)）]/g, ''));
+    item.news = [
+      { title:`Googleニュースで「${titleText}」`,
+        url:`https://news.google.com/search?q=${qn}&hl=ja&gl=JP&ceid=JP:ja` }
+    ];
+  }
+  return item.news.slice(0,1);
+}
+
+
+  const newsUl = document.getElementById('news');
+  (item.news || []).forEach(n => {
+    const li = document.createElement('li');
+    li.innerHTML = n.url
+      ? `<a href="${n.url}" target="_blank" rel="noopener">${n.title||n.url}</a>`
+      : (n.title||'');
+    newsUl.appendChild(li);
+  });
+})();
+</script>
+<script src="assets/js/glossary.js"></script>
+<script src="assets/js/detail-page.js"></script>
+
+</body>
+</html>

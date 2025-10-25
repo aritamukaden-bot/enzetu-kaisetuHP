@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>日本のトピック</title>
+
+  <!-- 上の階層にあるCSSを参照 -->
+  <link rel="stylesheet" href="../assets/css/sanitize.css">
+  <link rel="stylesheet" href="../assets/css/home.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <h1 class="site-title">日本のトピック</h1>
+    <p class="site-sub">国内の政策・制度・演説をシンプルに整理</p>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- 🔍 検索 -->
+  <section class="search-section" aria-label="日本のメニュー検索">
+    <label for="searchInput" class="search-label">キーワードで探す</label>
+    <input type="text" id="searchInput" placeholder="例：税制、防災、所信表明、基礎控除 など">
+    <p class="search-note">※ 下の項目がリアルタイムに絞り込まれます。</p>
+  </section>
+
+  <!-- 章：演説・方針 -->
+  <h2 class="section-title">演説・方針</h2>
+  <nav class="list-nav list--indent">
+    <a class="list-item" href="../speech.html">
+      <span class="item-title">所信表明演説</span>
+      <span class="item-desc">本文中の用語に開設があります。クリックで詳細へ</span>
+    </a>
+  </nav>
+
+  <!-- 章：経済・税制 -->
+  <h2 class="section-title section-title--spaced">経済・税制</h2>
+  <nav class="list-nav list--indent">
+    <a class="list-item" href="../detail.html?q=基礎控除">
+      <span class="item-title">基礎控除</span>
+      <span class="item-desc">※未実装
+        所得税・住民税で一律に差し引ける控除の基本</span>
+    </a>
+    <a class="list-item" href="../detail.html?q=給付付き税額控除">
+      <span class="item-title">給付付き税額控除</span>
+      <span class="item-desc">※未実装　控除しきれない分を給付する仕組みの概要</span>
+    </a>
+    <a class="list-item" href="../detail.html?q=暫定税率">
+      <span class="item-title">暫定税率</span>
+      <span class="item-desc">※未実装　ガソリン税などに上乗せされる期間限定の税率</span>
+    </a>
+  </nav>
+
+  <!-- 章：防災・インフラ -->
+  <h2 class="section-title section-title--spaced">防災・インフラ</h2>
+  <nav class="list-nav list--indent">
+    <a class="list-item" href="../detail.html?q=国土強靱化">
+      <span class="item-title">国土強靱化</span>
+      <span class="item-desc">※未実装　災害に強い国づくり・インフラ更新の方針</span>
+    </a>
+    <a class="list-item" href="../detail.html?q=危機管理投資">
+      <span class="item-title">危機管理投資</span>
+      <span class="item-desc">※未実装　安全保障・防災・エネルギーなどリスクに先手投資</span>
+    </a>
+  </nav>
+
+  <!-- 章：防衛・安全保障 -->
+  <h2 class="section-title section-title--spaced">防衛・安全保障</h2>
+  <nav class="list-nav list--indent">
+    <a class="list-item" href="../detail.html?q=対GDP比2%水準">
+      <span class="item-title">防衛費（対GDP比2%水準）</span>
+      <span class="item-desc">※未実装　装備・人件費・研究開発等を含む増額方針の概要</span>
+    </a>
+  </nav>
+
+  <!-- 該当なしメッセージ -->
+  <p id="noResult" class="no-result" hidden>該当する項目がありません。</p>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container"><a class="brand" href="../index.html">← ホームへ</a></div>
+</footer>
+
+<!-- 🔧 検索スクリプト（indexと同じ動き） -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const input = document.getElementById('searchInput');
+  const items = Array.from(document.querySelectorAll('.list-nav .list-item'));
+  const noResult = document.getElementById('noResult');
+
+  function applyFilter(q){
+    const kw = q.trim().toLowerCase();
+    let visibleCount = 0;
+    items.forEach(a => {
+      const text = a.textContent.toLowerCase();
+      const hit = !kw || text.includes(kw);
+      a.style.display = hit ? 'block' : 'none';
+      if (hit) visibleCount++;
+    });
+    noResult.hidden = (visibleCount !== 0);
+  }
+  input.addEventListener('input', () => applyFilter(input.value));
+});
+</script>
+
+</body>
+</html>

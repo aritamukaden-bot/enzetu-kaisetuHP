@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>世界のトピック</title>
+
+  <link rel="stylesheet" href="../assets/css/sanitize.css">
+  <link rel="stylesheet" href="../assets/css/home.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <h1 class="site-title">世界のトピック</h1>
+    <p class="site-sub">国際協定・安全保障・各国政策をシンプルに整理</p>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- 🔍 検索 -->
+  <section class="search-section" aria-label="世界のメニュー検索">
+    <label for="searchInput" class="search-label">キーワードで探す</label>
+    <input type="text" id="searchInput" placeholder="例：CPTPP、安全保障、通商 など">
+    <p class="search-note">※ 下の項目がリアルタイムに絞り込まれます。</p>
+  </section>
+
+  <!-- 章：国際経済・通商 -->
+  <h2 class="section-title">国際経済・通商</h2>
+  <nav class="list-nav list--indent">
+    <a class="list-item" href="../detail.html?q=CPTPP">
+      <span class="item-title">CPTPP</span>
+      <span class="item-desc">環太平洋の多国間経済連携協定（国内実施法・加盟拡大など）</span>
+    </a>
+  </nav>
+
+  <!-- 章：安全保障 -->
+  <h2 class="section-title section-title--spaced">安全保障</h2>
+  <nav class="list-nav list--indent">
+    <a class="list-item" href="../detail.html?q=対GDP比2%水準">
+      <span class="item-title">日本の防衛費（対GDP比2%水準）</span>
+      <span class="item-desc">国際的な議論の中での日本の位置づけ</span>
+    </a>
+  </nav>
+
+  <!-- 章：資料・リソース -->
+  <h2 class="section-title section-title--spaced">資料・リソース</h2>
+  <nav class="list-nav list--indent">
+    <a class="list-item" href="../assets/js/glossary.js">
+      <span class="item-title">用語辞書（glossary.js）</span>
+      <span class="item-desc">国際関連ワードを増やすときはここに追加</span>
+    </a>
+  </nav>
+
+  <p id="noResult" class="no-result" hidden>該当する項目がありません。</p>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container"><a class="brand" href="../index.html">← ホームへ</a></div>
+</footer>
+
+<!-- 🔧 検索スクリプト（indexと同じ動き） -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const input = document.getElementById('searchInput');
+  const items = Array.from(document.querySelectorAll('.list-nav .list-item'));
+  const noResult = document.getElementById('noResult');
+
+  function applyFilter(q){
+    const kw = q.trim().toLowerCase();
+    let visibleCount = 0;
+    items.forEach(a => {
+      const text = a.textContent.toLowerCase();
+      const hit = !kw || text.includes(kw);
+      a.style.display = hit ? 'block' : 'none';
+      if (hit) visibleCount++;
+    });
+    noResult.hidden = (visibleCount !== 0);
+  }
+  input.addEventListener('input', () => applyFilter(input.value));
+});
+</script>
+
+</body>
+</html>
